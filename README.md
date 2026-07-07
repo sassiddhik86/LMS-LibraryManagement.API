@@ -31,7 +31,7 @@ This application follows backend development with modren .NET technologies, Clea
 
 * Clean Architecture
 * SOLID Principles
-* Repository Pattern (Implemented but never used)
+* Repository Pattern (Designed but never implemented)
 * Service Layer Pattern
 * Dependency Injection
 * Domain-Driven Design (DDD)
