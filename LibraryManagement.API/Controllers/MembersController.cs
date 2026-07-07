@@ -17,6 +17,7 @@ public class MembersController : ControllerBase
         _memberService = memberService;
     }
 
+    // Get: api/members
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -24,6 +25,7 @@ public class MembersController : ControllerBase
         return Ok(members);
     }
 
+    //Get: api/members/{1}
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -34,6 +36,7 @@ public class MembersController : ControllerBase
         return Ok(result.Value);
     }
 
+    //Post: api/members
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateMemberRequest request)
     {
@@ -44,6 +47,7 @@ public class MembersController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = result.Value!.Id }, result.Value);
     }
 
+    //Put: api/members/{1}
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateMemberRequest request)
     {
@@ -54,6 +58,7 @@ public class MembersController : ControllerBase
         return Ok(result.Value);
     }
 
+    //Delete: api/members/{1}
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

@@ -14,10 +14,6 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<JwtService>();
 
 // JWT Authentication
-//var jwtKey = builder.Configuration["Jwt:Key"]!;
-//var jwtIssuer = builder.Configuration["Jwt:Issuer"]!;
-//var jwtAudience = builder.Configuration["Jwt:Audience"]!;
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -39,6 +35,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// SQLite DB (In-Memory Database)
 var dbPath = Path.Combine(builder.Environment.ContentRootPath, "library.db");
 
 builder.Services.AddDbContext<LibraryDbContext>(options =>
