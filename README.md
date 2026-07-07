@@ -133,6 +133,69 @@ LibraryManagement.API
 
 ---
 
+# Database Design
+
+### Users
+```json
+CREATE TABLE "Users" (
+	"Id"	INTEGER NOT NULL,
+	"Email"	TEXT NOT NULL,
+	"PasswordHash"	TEXT NOT NULL,
+	"Role"	TEXT NOT NULL,
+	"CreatedAt"	TEXT NOT NULL,
+	CONSTRAINT "PK_Users" PRIMARY KEY("Id" AUTOINCREMENT)
+);
+```
+
+### Books
+```json
+CREATE TABLE "Books" (
+	"Id"	INTEGER NOT NULL,
+	"Title"	TEXT NOT NULL,
+	"Author"	TEXT NOT NULL,
+	"ISBN"	TEXT NOT NULL,
+	"PublicationYear"	INTEGER NOT NULL,
+	"Category"	TEXT NOT NULL,
+	"TotalCopies"	INTEGER NOT NULL,
+	"AvailableCopies"	INTEGER NOT NULL,
+	"Available"	INTEGER NOT NULL,
+	CONSTRAINT "PK_Books" PRIMARY KEY("Id" AUTOINCREMENT)
+);
+```
+
+### Members
+```json
+CREATE TABLE "Members" (
+	"Id"	INTEGER NOT NULL,
+	"FirstName"	TEXT NOT NULL,
+	"LastName"	TEXT NOT NULL,
+	"Email"	TEXT NOT NULL,
+	"Phone"	TEXT,
+	"RegisteredDate"	TEXT NOT NULL,
+	"IsActive"	INTEGER NOT NULL,
+	CONSTRAINT "PK_Members" PRIMARY KEY("Id" AUTOINCREMENT)
+);
+```
+
+### Loans
+```json
+CREATE TABLE "Loans" (
+	"Id"	INTEGER NOT NULL,
+	"BookId"	INTEGER NOT NULL,
+	"MemberId"	INTEGER NOT NULL,
+	"BorrowedDate"	TEXT NOT NULL,
+	"ReturnedDate"	TEXT,
+	"DueDate"	TEXT NOT NULL,
+	"IsReturned"	INTEGER NOT NULL,
+	"Status"	INTEGER NOT NULL,
+	CONSTRAINT "PK_Loans" PRIMARY KEY("Id" AUTOINCREMENT),
+	CONSTRAINT "FK_Loans_Books_BookId" FOREIGN KEY("BookId") REFERENCES "Books"("Id") ON DELETE CASCADE,
+	CONSTRAINT "FK_Loans_Members_MemberId" FOREIGN KEY("MemberId") REFERENCES "Members"("Id") ON DELETE CASCADE
+);
+```
+
+---
+
 # API Endpoints
 
 ### Authentication
@@ -172,6 +235,8 @@ LibraryManagement.API
 | GET    | `/api/loans/member/{memberId}`| Get loans by member          |
 | POST   | `/api/loans/borrow`           | Borrow book                |
 | PUT    | `/api/loans/return/{loanId}`  | Return book                |
+
+---
 
 # Example Payloads
 
@@ -274,5 +339,37 @@ To test protected endpoints in Swagger:
 2. Call `POST /api/auth/login` to get a token
 3. Click the **Authorize** button and enter your token
 4. All subsequent requests will include the Bearer token
+
+---
+
+# Additional Notes
+# API Testing with Postman
+
+A Postman collection file is included with this project:
+
+File: LibraryManagement.API.postman_collection.json (Available in main project folder)
+# Usage
+1. Open Postman.
+2. Click Import.
+3. Select the LibraryManagement.API.postman_collection.json file.
+4. The collection will be imported with all available API endpoints preconfigured.
+5. Execute the requests to test and verify the functionality of the Library Management System API.
+
+Ensure the application is running before executing the requests from Postman.
+
+
+# Database Editor
+
+A SQLite database file is included with this project:
+
+File: library.db (Available in main project folder)
+# Usage
+
+You can open this file using any SQLite database management tool, such as:
+
+1. DB Browser for SQLite
+2. SQLiteStudio
+3. SQLite Expert
+4. SQLite database file containing the complete database schema and sample data.
 
 ---
